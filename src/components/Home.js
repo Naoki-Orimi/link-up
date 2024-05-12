@@ -14,13 +14,47 @@ function Home() {
       setShowAboutModal(false);
     };
 
+
+    /** 
+     * やりたいこと
+     * 
+     * ユーザーを3人用意して、ユーザーカードを3枚表示したい。
+     * 表示はカードを重ねているような感じがいい。
+     * 実際は、1枚目を表示してそれのスワイプが終わったら、
+     * 次のユーザーを表示する感じ。
+     * 
+     * → 検討したが、MatchCardコンポーネントには全てユーザー情報を送ってしまい、
+     * 子コンポーネントでレンダリングして次のユーザーを表示した方がSPOF観点としても良き
+     * 
+    */
+
+    const test = [
+        {
+            name: 'Michael Jackson',
+            imageUrl: '/assets/kkrn_icon_user_1.png',
+            email: 'MichelJackson@example.com',
+            description: '役職：社長'
+        },
+        {
+            name: 'Paul Smith',
+            imageUrl: '/assets/kkrn_icon_user_1.png',
+            email: 'PaulSmith@example.com',
+            description: '役職：部長'
+        },
+        {
+            name: 'David Marks',
+            imageUrl: '/assets/kkrn_icon_user_1.png',
+            email: 'DavidMarks@example.com',
+            description: '役職：主任'
+        },
+    ];
+
     useEffect(() => {
         // userの取得数分、MatchCardコンポーネントを用意する。
         // 別に最初からコンポーネントを用意するのではなく、1枚目を表示させて、
         // 次のカード情報をレンダリングで表示するようにする。
         console.log('Homeコンポーネントがレンダリングされました。');
     }, []);
-
   
     return (
         <div style={{ textAlign: 'center' }}>

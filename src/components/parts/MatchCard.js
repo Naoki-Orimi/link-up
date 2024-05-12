@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardMedia, Typography, Button, ButtonGroup, CircularProgress } from '@mui/material';
 // なんかスワイプ機能のために入れたけど使わないかも…
 import { useSwipeable } from 'react-swipeable';
+// アニメーションもなんかhookがむずくて後回し…
 import { animated, useSpring } from '@react-spring/web'
 
 function MatchCard({ user }) {
@@ -10,34 +11,38 @@ function MatchCard({ user }) {
   const [liked, setLiked] = useState(null);
   const [skipped, setSkipped] = useState(null);
 
+  const { x } = useSpring({ x: 0 });
+
+  // いいねイベントハンドラ
   const handleLike = () => {
     setLiked(true);
     setSkipped(false);
-    // いいねの処理を追加する
     console.log('いいねしました');
-    nextCard();
+    setCurrentIndex(prevIndex => prevIndex + 1);
+    // カードを左にスライドするアニメーションを設定
   };
 
+  // スキップイベントハンドラ
   const handleSkip = () => {
     setSkipped(true);
     setLiked(false);
-    // スキップの処理を追加する
     console.log('スキップしました');
-    nextCard();
-  };
-
-  const nextCard = () => {
     setCurrentIndex(prevIndex => prevIndex + 1);
   };
+
+  useEffect(() => {
+    if (liked) {
+      // カードがいいねまたはスキップされたらアニメーションを開始する
+      x.start({ to: -100 });
+    } else {
+      x.start({ to: 100 });
+    }
+  }, [currentIndex, liked, skipped, x]);
 
   useEffect(() => {
     // データのロードが完了したらloadingをfalseに設定する
     setLoading(false);
   }, []);
-
-  useEffect(() => {
-    console.log(`いま表示しているカードの順番${currentIndex}`);
-  }, [currentIndex]);
 
   if (loading) {
     // データがロード中の場合、くるくるアニメーションを表示する
@@ -49,8 +54,13 @@ function MatchCard({ user }) {
   }
 
   return (
-    <animated.div style={{ display: 'inline-block', width: '345px', height: '100%'}}>
-    {/* <div style={{ display: 'inline-block', width: '345px', height: '100%' }}> */}
+    <animated.div style={
+      {
+        display: 'inline-block',
+        width: '345px',
+        height: '100%',
+        transform: x.to((val) => `translateX(${val}px)`)
+      }}>
       <Card sx={{ maxWidth: 345 }}>
         <CardMedia
           component="img"
@@ -71,7 +81,7 @@ function MatchCard({ user }) {
           <Button sx={{ flexGrow: 1 }} color="secondary" onClick={handleSkip} disabled={skipped}>Skip</Button>
         </ButtonGroup>
       </Card>
-    {/* </div> */}
+      {/* </div> */}
     </animated.div>
   );
 }
