@@ -1,3 +1,17 @@
+# サービス概要
+
+ビジネスマッチングサービス
+
+# どこまで完了したか
+
+- コンポーネントをいくつか用意
+- Material-uiインストール
+- React-bootstrapインストール
+  - これはただのReactとbootstrapの依存関係をインストールしただけらしく、publuc配下にbootstrapフォルダをダウンロードしてきたが…意味あるのか？
+- tailwindインストール
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
