@@ -5,9 +5,9 @@ import SubTextDesign from '../../design/SubTextDesign.js';
 function UserEdit({ user }) {
     // ユーザー情報の状態を管理するためのstate
     const [userData, setUserData] = useState({
-        username: user.name,
+        name: user.name,
         email: user.email,
-        // 他のユーザー情報も追加
+        description: user.description,
     });
 
     // フォームの入力値が変更されたときに呼ばれるハンドラー
@@ -26,9 +26,6 @@ function UserEdit({ user }) {
         console.log('保存完了', userData);
     };
 
-    // useEffectはレンダリングされた後に実行されるフック
-    // 通常は初回レンダリング時と、実行後再レンダリングの2回が実行されるが、
-    // 第二引数にuserDataを指定することで、初回レンダリング実行後、userDataが変わらない限り再レンダリングは実行されない。
     useEffect(() => {
         console.log('UserEditコンポーネントがレンダリングされました。');
     }, []);
@@ -45,7 +42,7 @@ function UserEdit({ user }) {
                         margin="normal"
                         label="Username"
                         name="username"
-                        value={userData.username}
+                        value={userData.name}
                         onChange={handleInputChange}
                     />
                     <TextField
@@ -54,6 +51,14 @@ function UserEdit({ user }) {
                         label="Email"
                         name="email"
                         value={userData.email}
+                        onChange={handleInputChange}
+                    />
+                    <TextField
+                        fullWidth
+                        margin="normal"
+                        label="discription"
+                        name="discription"
+                        value={userData.description}
                         onChange={handleInputChange}
                     />
                     {/* 他のユーザー情報の編集項目も追加 */}
