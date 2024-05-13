@@ -11,7 +11,13 @@ function MatchCard({ user }) {
   const [liked, setLiked] = useState(null);
   const [skipped, setSkipped] = useState(null);
 
-  const { x } = useSpring({ x: 0 });
+  // カードアニメーション
+  // useSpringの返り値であるオブジェクトから、xとopacityを定数として定義
+  const { x, opacity } = useSpring({
+    x: 0,
+    opacity: 1, 
+    config: { tension: 250, friction: 50 },
+  });
 
   // いいねイベントハンドラ
   const handleLike = () => {
@@ -32,12 +38,13 @@ function MatchCard({ user }) {
 
   useEffect(() => {
     if (liked) {
-      // カードがいいねまたはスキップされたらアニメーションを開始する
       x.start({ to: -100 });
-    } else {
+      opacity.start(0);
+    } else if(skipped) {
       x.start({ to: 100 });
+      opacity.start(0);
     }
-  }, [currentIndex, liked, skipped, x]);
+  }, [currentIndex, liked, skipped, x, opacity]);
 
   useEffect(() => {
     // データのロードが完了したらloadingをfalseに設定する
@@ -54,12 +61,13 @@ function MatchCard({ user }) {
   }
 
   return (
-    <animated.div style={
-      {
+    <animated.div style=
+      {{
         display: 'inline-block',
         width: '345px',
         height: '100%',
-        transform: x.to((val) => `translateX(${val}px)`)
+        transform: x.to((val) => `translateX(${val}px)`),
+        opacity: opacity, 
       }}>
       <Card sx={{ maxWidth: 345 }}>
         <CardMedia
