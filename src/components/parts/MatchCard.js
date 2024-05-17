@@ -4,6 +4,7 @@ import { Card, CardContent, CardMedia, Typography, Button, ButtonGroup, Circular
 import { useSwipeable } from 'react-swipeable';
 // アニメーションもなんかhookがむずくて後回し…
 import { animated, useSpring } from '@react-spring/web'
+import '../css/matchCard.css'
 
 function MatchCard({ user }) {
   const [loading, setLoading] = useState(true);
@@ -13,7 +14,6 @@ function MatchCard({ user }) {
   const currentUser = user[currentIndex];
 
   const nextCard = () => {
-    console.log(`処理したカード数：${currentIndex}`);
     // 初期表示は実行しないようにする
     if (liked || skipped) {
       console.log('次のカードを用意します。');
@@ -25,6 +25,7 @@ function MatchCard({ user }) {
       // アニメーションをリセット
       x.set(0);
     }
+    console.log(`処理したカード数：${currentIndex}`);
   }
 
   // カードアニメーション
