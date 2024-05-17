@@ -4,7 +4,6 @@ import { Card, CardContent, CardMedia, Typography, Button, ButtonGroup, Circular
 import { useSwipeable } from 'react-swipeable';
 // アニメーションもなんかhookがむずくて後回し…
 import { animated, useSpring } from '@react-spring/web'
-import '../css/matchCard.css'
 
 function MatchCard({ user }) {
   const [loading, setLoading] = useState(true);
