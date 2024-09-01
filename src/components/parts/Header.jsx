@@ -9,9 +9,9 @@ import {
     MenuItem
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import MainTextDesign from '../../design/MainTextDesign';
+import MainTextDesign from '../../design/MainTextDesign.js';
 import SubTextDesign from '../../design/SubTextDesign.js';
-import Logout from '../Logout';
+import Logout from '../Logout.jsx';
 
 function Header() {
     const [anchorEl, setAnchorEl] = useState(null);
