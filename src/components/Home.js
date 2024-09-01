@@ -6,13 +6,13 @@ import UserData from '../mocks/userdata';
 import SubTextDesign from '../design/SubTextDesign';
 
 function Home() {
-    const [showAboutModal, setShowAboutModal] = useState(false);
-    const handleShowAboutModal = () => {
-      setShowAboutModal(true);
-    };
-    const handleCloseAboutModal = () => {
-      setShowAboutModal(false);
-    };
+    // const [showAboutModal, setShowAboutModal] = useState(false);
+    // const handleShowAboutModal = () => {
+    //   setShowAboutModal(true);
+    // };
+    // const handleCloseAboutModal = () => {
+    //   setShowAboutModal(false);
+    // };
 
     useEffect(() => {
         // userの取得数分、MatchCardコンポーネントを用意する。

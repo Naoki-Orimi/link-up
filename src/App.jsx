@@ -5,21 +5,23 @@ import logo from './logo.svg';
 import './App.css';
 import Header from './components/parts/Header';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { CircularProgress } from '@mui/material';
+import { useAuth0 } from '@auth0/auth0-react';
 import Home from './components/Home';
 import UserEdit from './components/parts/UserEdit';
 import UserData from './mocks/userdata';
 import Login from './components/Login';
-
+import Callback from './components/Callback';
 
 function App() {
-  // ここでまずログイン状態を見る必要がある。あればuserの処理がかける。
+  const { user, isAuthenticated, isLoading } = useAuth0();
 
   // ここはuserId=1でハードコーディングしているが、
   const loginUserData = UserData.find(user => user.id === 1);
   const handleLogin = (username, password) => {
     // ログイン処理
     console.log('Logging in with', username, password);
-    
+
     // ここで認証APIを呼び出すなどの処理を行う
   };
 
@@ -39,15 +41,26 @@ function App() {
     fetchData();
   });
 
+  console.log('認証完了していますか？', isAuthenticated);
+  if (isLoading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '300px' }}>
+        <CircularProgress />
+      </div>
+    );
+  }
+
   return (
     <Router>
-      <Header></Header>
+      {isAuthenticated && <Header />}
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/user" element={<UserEdit user={ loginUserData }/>} />
-          {/* 強制的に飛ばしたい */}
-          {/* Reduxでログイン状態管理を行いたい */}
-          <Route path="/login" element={<Login />}></Route>
+        <Route path="/callback" element={isAuthenticated ? <Callback /> : <Login />} />
+        <Route path="/" element={isAuthenticated ? <Home /> : <Login />} />
+        <Route path="/home" element={isAuthenticated ? <Home /> : <Login />} />
+        {/* DBのユーザーデータからの値を出す場合 */}
+        <Route path="/user" element={isAuthenticated ? <UserEdit user={loginUserData} /> : <Login />} />
+        {/* Auth0データからの値を出す場合 */}
+        {/* <Route path="/user" element={isAuthenticated ? <UserEdit user={user} /> : <Login />} /> */}
       </Routes>
     </Router>
   );

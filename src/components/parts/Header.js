@@ -11,6 +11,7 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import MainTextDesign from '../../design/MainTextDesign';
 import SubTextDesign from '../../design/SubTextDesign.js';
+import Logout from '../Logout';
 
 function Header() {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -58,6 +59,7 @@ function Header() {
             >
                 Link Up
             </Typography>
+            <Logout />
         </Toolbar>
         </AppBar>
     );

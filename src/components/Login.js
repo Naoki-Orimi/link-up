@@ -1,66 +1,42 @@
-import React, { useState } from 'react';
-import { Container, TextField, Button, Typography, Box } from '@mui/material';
+import React from 'react';
+import { Container, Button, Box } from '@mui/material';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const Login = ({ onLogin }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+    const { loginWithRedirect } = useAuth0();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // シンプルなバリデーション
-    if (username && password) {
-      onLogin(username, password);
-    } else {
-      alert('Please enter both username and password.');
-    }
-  };
+    const handleLogin = () => {
+        console.log('ログイン画面に移行します。');
+        console.log(process.env.REACT_APP_API_URL + '/callback');
+        // loginWithRedirect({ redirectUri: `${process.env.REACT_APP_API_URL}/callback`});
+        // 別に引数は空でも行けた↓
+        loginWithRedirect();
+    };
 
-  return (
-    <Container maxWidth="xs">
-      <Box
-        component="form"
-        onSubmit={handleSubmit}
-        sx={{ mt: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}
-      >
-        <Typography component="h1" variant="h5">
-          Login
-        </Typography>
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          id="username"
-          label="Username"
-          name="username"
-          autoComplete="username"
-          autoFocus
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          name="password"
-          label="Password"
-          type="password"
-          id="password"
-          autoComplete="current-password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          color="primary"
-          sx={{ mt: 3, mb: 2 }}
-        >
-          ログイン
-        </Button>
-      </Box>
-    </Container>
-  );
+    return (
+        <Container maxWidth="xs">
+            <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                minHeight="100vh"
+            >
+                <Button
+                    onClick={handleLogin}
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    sx={{
+                        padding: '10px 20px',
+                        borderRadius: '8px',
+                        textTransform: 'none',
+                    }}
+                >
+                    Auth ログイン実装したで！！
+                </Button>
+            </Box>
+        </Container>
+    );
 };
 
 export default Login;
