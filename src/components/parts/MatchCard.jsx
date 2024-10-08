@@ -24,7 +24,7 @@ function MatchCard({ user }) {
       // アニメーションをリセット
       x.set(0);
     }
-    console.log(`処理したカード数：${currentIndex}`);
+    // console.log(`処理したカード数：${currentIndex}`);
   }
 
   // カードアニメーション
@@ -65,6 +65,11 @@ function MatchCard({ user }) {
     // データのロードが完了したらloadingをfalseに設定する
     setLoading(false);
   }, []);
+
+  // 処理後の動き
+  useEffect(() => {
+    console.log(`処理したカード数：${currentIndex}`);
+  }, [currentIndex]);
 
   // currentUserがなくなったら
   if (typeof (currentUser) === 'undefined') {
