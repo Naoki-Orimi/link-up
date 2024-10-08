@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import logo from './logo.svg';
 import './App.css';
@@ -18,24 +17,16 @@ function App() {
 
   // ここはuserId=1でハードコーディングしているが、
   const loginUserData = UserData.find(user => user.id === 1);
-  const handleLogin = (username, password) => {
-    // ログイン処理
-    console.log('Logging in with', username, password);
+  // const handleLogin = (username, password) => {
+  //   // ログイン処理
+  //   console.log('Logging in with', username, password);
 
-    // ここで認証APIを呼び出すなどの処理を行う
-  };
+  //   // ここで認証APIを呼び出すなどの処理を行う
+  // };
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        console.log('API疎通確認');
-        const res = await axios.get(`${process.env.REACT_APP_API_URL}/test`);
-        console.log(res);
-      } catch (e) {
-        console.error(e);
-      } finally {
-        console.log('API疎通完了');
-      }
+      console.log("hoge");
     };
 
     fetchData();
